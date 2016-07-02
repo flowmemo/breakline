@@ -1,0 +1,19 @@
+{
+  "name": "multiline.js",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/flowmemo/multiline.js.git"
+  },
+  "author": "flowmemo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/flowmemo/multiline.js/issues"
+  },
+  "homepage": "https://github.com/flowmemo/multiline.js#readme"
+}
