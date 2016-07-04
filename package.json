@@ -15,5 +15,12 @@
   "bugs": {
     "url": "https://github.com/flowmemo/multiline.js/issues"
   },
-  "homepage": "https://github.com/flowmemo/multiline.js#readme"
+  "homepage": "https://github.com/flowmemo/multiline.js#readme",
+  "devDependencies": {
+    "uglify-js": "^2.6.4"
+  },
+  "dependencies": {
+    "acorn": "^3.2.0",
+    "eslint": "^3.0.0"
+  }
 }
