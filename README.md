@@ -2,23 +2,44 @@
 Break you Javascript code into mulilines as many as possible.
 
 ## How
-We define *atom* in js.
-example:
-```js
-function foo() {}
-```
-all of token in above code are *atom*
-They can be write as this:
-```js
-function
-foo
-(
-)
-{
-}
-```
+
+http://www.ecma-international.org/ecma-262/6.0/#sec-automatic-semicolon-insertion
 
 eslint:
 assertASTDidntChange
 insertTextAfter
+insertTextAfterRange
 SourceCodeFixer.applyFixes
+
+
+interface:
+type
+name
+value
+regex: pattern, flags
+body: [statements]
+params: [Pattern]
+expression
+object
+argument
+label
+consequent
+test
+alternate
+discriminant
+cases
+block 
+handler
+finalizer
+init
+update
+left
+right
+id
+kind
+elements
+properties
+prefix
+operator
+property
+computed

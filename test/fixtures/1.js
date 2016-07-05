@@ -13,5 +13,9 @@ function bar () {
   }
 }
 
-console.log(foo() + bestSFbook + JSON.stringify(bar()))
-
+foo()
+var songs = bar().songs
+for (let i = 0; i < songs.length; i++) {
+  console.log(songs[i])
+}
+console.log(bestSFbook)
