@@ -1,1 +1,3 @@
 test/fixtures/*.js
+test/output/*.js
+util.js

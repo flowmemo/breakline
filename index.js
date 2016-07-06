@@ -1,22 +1,27 @@
 'use strict'
 const acorn = require('acorn')
 const applyFixes = require('./util.js').applyFixes
-const restricted = ['++', '--', 'continue', 'break', 'return', 'throw', '=>', 'yield']
-function multiline (sourceCode, options) {
+const restricted = ['continue', 'break', 'return', 'throw', 'yield']
+function multiline(sourceCode, options) {
   const tokens = acorn.tokenizer(sourceCode, options)
   const messages = []
 
-  let preTokenType
+  let preToken = tokens.getToken()
   for (let token of tokens) {
-    if (!restricted.includes(preTokenType) && token.type.label !== '++/--') {
-      messages.push({
-        fix: {
-          range: [token.start, token.start],
-          text: ['\n']
-        }
-      })
+    if (!restricted.includes(preToken.type.keyword) &&
+      !['++/--', '=>'].includes(token.type.label)) {
+      let betweenStr = sourceCode.slice(preToken.end, token.start)
+      if (!betweenStr.includes('\n')) {
+        // if a linebreak is between two token, don't add another
+        messages.push({
+          fix: {
+            range: [token.start, token.start],
+            text: ['\n']
+          }
+        })
+      }
     }
-    preTokenType = token.type.keyword
+    preToken = token
   }
 
   let result = applyFixes({ text: sourceCode }, messages)
