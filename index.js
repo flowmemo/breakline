@@ -1,10 +1,11 @@
 'use strict'
 const acorn = require('acorn')
-const applyFixes = require('./util.js').applyFixes
+
 const restricted = ['continue', 'break', 'return', 'throw', 'yield']
-function multiline(sourceCode, options) {
+
+function multiline (sourceCode, options) {
   const tokens = acorn.tokenizer(sourceCode, options)
-  const messages = []
+  const positions = []
 
   let preToken = tokens.getToken()
   for (let token of tokens) {
@@ -12,33 +13,37 @@ function multiline(sourceCode, options) {
       !['++/--', '=>'].includes(token.type.label)) {
       let betweenStr = sourceCode.slice(preToken.end, token.start)
       if (!betweenStr.includes('\n')) {
-        // if a linebreak is between two token, don't add another
-        messages.push({
-          fix: {
-            range: [token.start, token.start],
-            text: ['\n']
-          }
-        })
+        positions.push(token.start)
       }
     }
     preToken = token
   }
 
-  let result = applyFixes({ text: sourceCode }, messages)
-  let newCode = result.output
+  let result = applyFixes(sourceCode, positions)
+  let newCode = result
 
-  // ensure the number of ASI is unchanged
   let oldASI = 0
   let newASI = 0
-  // console.log(newCode)
   acorn.parse(sourceCode, {
     onInsertedSemicolon: () => oldASI++
   })
   acorn.parse(newCode, {
     onInsertedSemicolon: () => newASI++
   })
-  if (oldASI !== newASI) throw Error('Breakline failed! The number of ASI is changed!')
+  if (oldASI !== newASI) throw Error(`The number of ASI is changed! The old is ${oldASI}, the new is ${newASI}`)
 
+  return newCode
+}
+
+function applyFixes (code, positions) {
+  let start = 0
+  let newCode = ''
+  for (let i = 0; i < positions.length; i++) {
+    let curSeg = code.slice(start, positions[i])
+    newCode += curSeg + '\n'
+    start = positions[i]
+  }
+  newCode += code.slice(start, code.length)
   return newCode
 }
 
