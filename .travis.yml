@@ -4,6 +4,7 @@ node_js:
   - '5'
   - '4'
 before_install:
+  - npm set progress=false
   - npm install -g npm@latest
 script: npm test
 after_success:

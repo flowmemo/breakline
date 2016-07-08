@@ -17,7 +17,7 @@ function breakline (sourceCode, options) {
     // acorn don't treat 'yield' as a keyword
     // https://github.com/ternjs/acorn/commit/8e9306239eb5f13d6e66c9b5ca58c38c343e7128
     let canBreak =
-      !(restricted.includes(preToken.type.keyword) ||
+      !(restricted.indexOf(preToken.type.keyword) > -1 ||
         ['++/--', '=>'].indexOf(token.type.label) > -1 ||
         (preToken.type.label === 'name' && preToken.value === 'yield'))
 
