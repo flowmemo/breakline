@@ -1,0 +1,13 @@
+language: node_js
+node_js:
+  - '6'
+  - '5'
+  - '4'
+before_install:
+  - npm install -g npm@latest
+script: npm test
+after_success:
+    - './node_modules/.bin/nyc report --reporter=text-lcov | ./node_modules/.bin/coveralls'
+cache:
+  directories:
+  - node_modules
