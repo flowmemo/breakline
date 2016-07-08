@@ -4,7 +4,7 @@ function foo () {
   console.log(a)
 }
 
-var bestSFbook = 'The ' + 'Three-Body ' + 'Problem'
+var bestSFbook = 'The ' /* hello */ + 'Three-Body ' + 'Problem'
 
 function bar () {
   return {
@@ -16,6 +16,14 @@ function bar () {
 foo()
 var songs = bar().songs
 for (let i = 0; i < songs.length; i++) {
-  console.log(songs[i])
+  console.log(songs[i]);
 }
 console.log(bestSFbook)
+
+setTimeout(() => {}, 1)
+function *foo () {
+  let i = 1
+  let j = yield 2
+  j = yield * foo()
+  return 3
+}

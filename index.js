@@ -1,35 +1,46 @@
 'use strict'
 const acorn = require('acorn')
+const debug = require('debug')('breakline')
 
 const restricted = ['continue', 'break', 'return', 'throw', 'yield']
 
 function multiline (sourceCode, options) {
+  options = Object.assign({}, {
+    ecmaVersion: 6
+  }, options)
+
   const tokens = acorn.tokenizer(sourceCode, options)
   const positions = []
 
   let preToken = tokens.getToken()
   for (let token of tokens) {
-    if (!restricted.includes(preToken.type.keyword) &&
-      !['++/--', '=>'].includes(token.type.label)) {
+    // acorn don't treat 'yield' as a keyword
+    // https://github.com/ternjs/acorn/commit/8e9306239eb5f13d6e66c9b5ca58c38c343e7128
+    let canBreak =
+      !(restricted.includes(preToken.type.keyword) ||
+        ['++/--', '=>'].includes(token.type.label) ||
+        (preToken.type.label === 'name' && preToken.value === 'yield'))
+
+    if (canBreak) {
       let betweenStr = sourceCode.slice(preToken.end, token.start)
-      if (!betweenStr.includes('\n')) {
-        positions.push(token.start)
-      }
+      if (!betweenStr.includes('\n')) positions.push(token.start)
     }
     preToken = token
   }
 
-  let result = applyFixes(sourceCode, positions)
-  let newCode = result
+  let newCode = applyFixes(sourceCode, positions)
+  debug(`the number of inserted linebreak is ${positions.length}`)
 
+  // ensure the number of ASI is not changed
   let oldASI = 0
   let newASI = 0
-  acorn.parse(sourceCode, {
+  acorn.parse(sourceCode, Object.assign(options, {
     onInsertedSemicolon: () => oldASI++
-  })
-  acorn.parse(newCode, {
+  }))
+  acorn.parse(sourceCode, Object.assign(options, {
     onInsertedSemicolon: () => newASI++
-  })
+  }))
+  debug(`oldASI is ${oldASI}, newASI is ${newASI}`)
   if (oldASI !== newASI) throw Error(`The number of ASI is changed! The old is ${oldASI}, the new is ${newASI}`)
 
   return newCode

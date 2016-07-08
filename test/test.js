@@ -1,17 +1,19 @@
 'use strict'
-// import test from 'ava'
-const fs = require('fs')
+import test from 'ava'
 const path = require('path')
-const ug = require('uglify-js')
-const multiline = require('../index.js')
-// console.log(multiline)
+const bluebird = require('bluebird')
+const fs = bluebird.promisifyAll(require('fs'))
+const multiline = require('..')
 
-var code = fs.readFileSync(path.resolve(__dirname, 'fixtures/1.js'), {encoding: 'utf8'})
-console.log(code)
-var newCode = multiline(code)
-// console.log(newCode)
-var ast = ug.parse(code)
-var compressor = ug.Compressor()
-var compressed = ast.transform(compressor)
-var ugCode = compressed.print_to_string()
-console.log(ugCode)
+const fixtures = fs.readdirSync('./fixtures').filter(n => n[0] !== '.')
+test('brealine all files', async t => {
+  t.plan(fixtures.length)
+  const files = fixtures.map(filename =>
+    fs.readFileAsync(path.resolve('./fixtures', filename), 'utf8'))
+  for (let file of files) {
+    let sourceCode = await file
+    multiline(sourceCode)
+    t.pass()
+  }
+})
+
