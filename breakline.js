@@ -18,7 +18,7 @@ function breakline (sourceCode, options) {
     // https://github.com/ternjs/acorn/commit/8e9306239eb5f13d6e66c9b5ca58c38c343e7128
     let canBreak =
       !(restricted.includes(preToken.type.keyword) ||
-        ['++/--', '=>'].includes(token.type.label) ||
+        ['++/--', '=>'].indexOf(token.type.label) > -1 ||
         (preToken.type.label === 'name' && preToken.value === 'yield'))
 
     if (canBreak) {
