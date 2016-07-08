@@ -4,7 +4,7 @@ const debug = require('debug')('breakline')
 
 const restricted = ['continue', 'break', 'return', 'throw', 'yield']
 
-function multiline (sourceCode, options) {
+function breakline (sourceCode, options) {
   options = Object.assign({}, {
     ecmaVersion: 6
   }, options)
@@ -58,4 +58,4 @@ function applyFixes (code, positions) {
   return newCode
 }
 
-module.exports = multiline
+module.exports = breakline
