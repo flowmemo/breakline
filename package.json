@@ -4,8 +4,7 @@
   "description": "break Javascript code into mulilines as many as possible",
   "main": "breakline.js",
   "scripts": {
-    "test": "ava",
-    "coverage": "nyc ava"
+    "test": "nyc ava"
   },
   "repository": {
     "type": "git",
