@@ -6,6 +6,7 @@
   "bin": {
     "breakline": "./cli.js"
   },
+  "files": ["breakline.js", "cli.js"],
   "scripts": {
     "test": "nyc ava"
   },
