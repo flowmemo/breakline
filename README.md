@@ -1,10 +1,10 @@
 # breakline
 Break Javascript code into mulilines as many as possible.
 
-[![Travis](https://img.shields.io/travis/flowmemo/breakline.svg?maxAge=2592000&style=flat-square)](https://travis-ci.org/flowmemo/breakline)
-[![AppVeyor branch](https://img.shields.io/appveyor/ci/flowmemo/breakline/master.svg?maxAge=2592000&style=flat-square&label=Win%20Test)](https://ci.appveyor.com/project/flowmemo/breakline)
-[![Coveralls branch](https://img.shields.io/coveralls/flowmemo/breakline/master.svg?maxAge=2592000&style=flat-square)](https://coveralls.io/github/flowmemo/breakline?branch=master)
-[![npm](https://img.shields.io/npm/v/breakline.svg?maxAge=2592000&style=flat-square)](https://www.npmjs.com/package/breakline)
+[![Travis branch](https://img.shields.io/travis/flowmemo/breakline/master.svg?style=flat-square)](https://travis-ci.org/flowmemo/breakline)
+[![AppVeyor branch](https://img.shields.io/appveyor/ci/flowmemo/breakline/master.svg?style=flat-square&label=Win%20Test)](https://ci.appveyor.com/project/flowmemo/breakline)
+[![Coveralls branch](https://img.shields.io/coveralls/flowmemo/breakline/master.svg?style=flat-square)](https://coveralls.io/github/flowmemo/breakline?branch=master)
+[![npm](https://img.shields.io/npm/v/breakline.svg?style=flat-square)](https://www.npmjs.com/package/breakline)
 
 ## Usage
 ### Demo
@@ -63,4 +63,4 @@ $ breakline your.js
 This command will create a file named 'your.js.breakline' 
 
 ## License
-MIT © flowmemo
+MIT © [flowmemo](http://weibo.com/flowmemo)
