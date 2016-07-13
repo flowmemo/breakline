@@ -1,8 +1,8 @@
 # breakline
-Break Javascript code into mulilines as many as possible.
+break your JS code into valid multilines as many as possible.
 
 [![Travis branch](https://img.shields.io/travis/flowmemo/breakline/master.svg?style=flat-square)](https://travis-ci.org/flowmemo/breakline)
-[![AppVeyor branch](https://img.shields.io/appveyor/ci/flowmemo/breakline/master.svg?style=flat-square&label=Win%20Test)](https://ci.appveyor.com/project/flowmemo/breakline)
+[![AppVeyor branch](https://img.shields.io/appveyor/ci/flowmemo/breakline/master.svg?style=flat-square&label=Win%20Test)](https://ci.appveyor.com/project/flowmemo/breakline/branch/master)
 [![Coveralls branch](https://img.shields.io/coveralls/flowmemo/breakline/master.svg?style=flat-square)](https://coveralls.io/github/flowmemo/breakline?branch=master)
 [![npm](https://img.shields.io/npm/v/breakline.svg?style=flat-square)](https://www.npmjs.com/package/breakline)
 
@@ -60,7 +60,7 @@ Then
 ```shell
 $ breakline your.js
 ```
-This command will create a file named 'your.js.breakline' 
+This command will create a file named 'your.js.breakline'.
 
 ## License
 MIT © [flowmemo](http://weibo.com/flowmemo)

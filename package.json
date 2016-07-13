@@ -1,7 +1,7 @@
 {
   "name": "breakline",
   "version": "0.1.1",
-  "description": "break Javascript code into mulilines as many as possible",
+  "description": "break your JS code into valid multilines as many as possible",
   "main": "breakline.js",
   "bin": {
     "breakline": "./cli.js"
