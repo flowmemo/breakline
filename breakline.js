@@ -7,7 +7,9 @@ const restricted = ['continue', 'break', 'return', 'throw', 'yield']
 function breakline (sourceCode, options) {
   options = Object.assign({
     ecmaVersion: 6,
-    allowHashBang: true
+    allowHashBang: true,
+    allowReturnOutsideFunction: true,
+    allowImportExportEverywhere: true
   }, options)
 
   const tokens = acorn.tokenizer(sourceCode, options)
@@ -17,13 +19,14 @@ function breakline (sourceCode, options) {
   for (let token of tokens) {
     // acorn don't treat 'yield' as a keyword
     // https://github.com/ternjs/acorn/commit/8e9306239eb5f13d6e66c9b5ca58c38c343e7128
-    let cannotBreak =
+    let breakable = !(
       restricted.indexOf(preToken.type.keyword) > -1 ||
       ['++/--', '=>'].indexOf(token.type.label) > -1 ||
       (preToken.type.label === 'name' && preToken.value === 'yield') ||
       ([preToken.type.label, token.type.label].indexOf('template') > -1)
+    )
 
-    if (!cannotBreak) {
+    if (breakable) {
       let betweenStr = sourceCode.slice(preToken.end, token.start)
       if (!betweenStr.includes('\n')) positions.push(token.start)
     }

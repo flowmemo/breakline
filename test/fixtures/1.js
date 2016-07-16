@@ -27,3 +27,10 @@ function *foo () {
   j = yield * foo()
   return 3
 }
+
+var reg = /\u0adfA-Z_([d+S]+?)/ig
+
+var template = `hello variable ${
+  reg
+} and variable ${bestSFbook.toString()}`
+console.log(template)
