@@ -46,8 +46,11 @@ function breakline (sourceCode, options) {
     onInsertedSemicolon: () => newASI++
   }))
   debug(`oldASI is ${oldASI}, newASI is ${newASI}`)
-  if (oldASI !== newASI) throw Error(`The number of ASI is changed! The old is ${oldASI}, the new is ${newASI}`)
-
+  if (oldASI !== newASI) {
+    throw Error(
+      `The number of ASI is changed! The old is ${oldASI}, the new is ${newASI}`
+      )
+  }
   return newCode
 }
 
