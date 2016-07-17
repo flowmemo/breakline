@@ -7,7 +7,7 @@ const breakline = require('..')
 
 const fixtures = fs.readdirSync('./fixtures').filter(n => n[0] !== '.')
 const files = fixtures.map(filename =>
-  fs.readFileAsync(path.resolve('./fixtures', filename), 'utf8'))
+  fs.readFileAsync(path.join('./fixtures', filename), 'utf8'))
 
 for (let i = 0; i < files.length; i++) {
   let file = files[i]
@@ -17,4 +17,3 @@ for (let i = 0; i < files.length; i++) {
     t.is(newCode.length, breakline(newCode).length)
   })
 }
-
