@@ -15,18 +15,21 @@ breakline <files or directory> [options]
 Optioins:
 --help, -h
   Show help info.
--o <directory>  
+-d <directory>  
   Output directory.
---suffix <true|false>
-  add '.breakline' suffix to the output files. The default is true.
+--nosuffix
+  don't add '.breakline' suffix to the output files.
 `
+
+const cwd = process.cwd()
 const argv = require('minimist')(process.argv.slice(2))
 const outDir = argv.d || ''
 let suffix = '.breakline'
-if (argv.suffix === false) suffix = ''
-const cwd = process.cwd()
+if (argv.nosuffix) suffix = ''
+
 debug(argv._)
 if (argv._.length === 0 || argv.h || argv.help) return console.log(info)
+
 for (let item of argv._) {
   let files = []
   item = path.relative(cwd, path.resolve(item)) // remove trailing slash
@@ -34,6 +37,8 @@ for (let item of argv._) {
   if (fs.statSync(item).isDirectory()) {
     files = files.concat(glob.sync(item + '/**/*.js'))
   } else files.push(item)
+
+  // break each file
   files.forEach(file => {
     fs.readFile(file, 'utf8', (err, data) => {
       if (err) throw err
@@ -44,13 +49,18 @@ for (let item of argv._) {
         console.error(`break ${file} failed!`)
         throw err
       }
+
+      // generate path of output file
       const curDir = path.dirname(item)
       const outFile = path.join(outDir, path.relative(curDir, file))
       const dirPath = path.dirname(outFile)
-      var writeFile = () => fs.writeFile(outFile + suffix, newCode, {
+
+      // callback for fs.ensureDir
+      const writeFile = () => fs.writeFile(outFile + suffix, newCode, {
         encoding: 'utf8',
-        flag: 'wx'
+        flag: 'wx'  // never overwrite file
       }, err => { if (err) throw err })
+
       fs.ensureDir(dirPath, writeFile)
     })
   })
