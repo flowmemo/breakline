@@ -1,6 +1,6 @@
 {
   "name": "breakline",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "break your JS code into valid multilines as many as possible",
   "main": "breakline.js",
   "bin": {
@@ -36,6 +36,8 @@
   "dependencies": {
     "acorn": "^3.2.0",
     "debug": "^2.2.0",
+    "fs-extra": "^0.30.0",
+    "glob": "^7.0.5",
     "minimist": "^1.2.0"
   }
 }
