@@ -1,6 +1,6 @@
 {
   "name": "breakline",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "break your JS code into valid multilines as many as possible",
   "main": "breakline.js",
   "bin": {
