@@ -1,3 +1,4 @@
+// comment
 'use strict'
 function foo () {
   var a = 12
@@ -34,3 +35,13 @@ var template = `hello variable ${
   reg
 } and variable ${bestSFbook.toString()}`
 console.log(template)
+
+function foo(a, b) {
+  a = b++
+  return ++a
+}
+
+function bar(a, b) {
+  a = ++b
+  return ++a
+}
