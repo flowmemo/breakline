@@ -1,6 +1,6 @@
 {
   "name": "breakline",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "break your JS code into valid multilines as many as possible",
   "main": "breakline.js",
   "bin": {
@@ -11,7 +11,7 @@
     "cli.js"
   ],
   "scripts": {
-    "test": "nyc ava"
+    "test": "cp *.js test/fixtures && nyc ava"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

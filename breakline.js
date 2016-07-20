@@ -14,12 +14,15 @@ function breakline (sourceCode, options) {
     locations: true
   }, options)
 
-  const tokens = acorn.tokenizer(sourceCode, options)
   const positions = []
   const updateExp = [] // deal with ++/--
 
-  let preToken = tokens.getToken()
-  for (let token of tokens) {
+  // this function checks every token
+  function checkToken (token) {
+    if (!preToken) {  // check if it is the first token
+      preToken = token
+      return
+    }
     let betweenStr = sourceCode.slice(preToken.end, token.start)
     if (!betweenStr.includes('\n')) {
       // acorn don't treat 'yield' as a keyword
@@ -39,24 +42,29 @@ function breakline (sourceCode, options) {
     preToken = token
   }
 
-  // ensure the number of ASI is not changed
   let oldASI = 0
-  let newASI = 0
+  let preToken
   const ast = acorn.parse(sourceCode, Object.assign(options, {
     onInsertedSemicolon: (a, b) => {
       oldASI++
       debug(a, b)
-    }
+    },
+    onToken: checkToken
   }))
   debug('=======')
+
+  // determine whether the '++/--' is prefix or postfix
   for (let pos of updateExp) {
     const res = walk.findNodeAfter(ast, pos, 'UpdateExpression')
     if (res && res.node.prefix && res.node.start === pos) positions.push(pos)
   }
+
   positions.sort((a, b) => a - b)
   let newCode = applyFixes(sourceCode, positions)
   debug(`the number of inserted linebreak is ${positions.length}`)
 
+  // ensure the number of ASI is not changed
+  let newASI = 0
   acorn.parse(newCode, Object.assign(options, {
     onInsertedSemicolon: (a, b) => {
       newASI++
