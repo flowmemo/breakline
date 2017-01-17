@@ -3,7 +3,6 @@ import test from 'ava'
 const os = require('os')
 const OS = os.type()
 const cp = require('child_process')
-process.chdir('..')
 test('test cli', t => {
   let result
   if (OS.indexOf('Windows') > -1) {
