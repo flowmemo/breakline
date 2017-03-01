@@ -63,12 +63,14 @@ This tool can be used from the command line. Install it globally by `npm install
 breakline <files or directory> [options]
 
 ### Optioins
+```
 --help, -h  
   Show help info.  
 -d <directory>  
   Output directory.  
 --nosuffix  
   don't add '.breakline' suffix to the output files.  
+```
 
 ### Example
 ```shell
