@@ -16,6 +16,7 @@ function breakline (sourceCode, options) {
 
   const positions = []
   const updateExp = [] // deal with ++/--
+  let preToken = null
 
   // this function checks every token
   function checkToken (token) {
@@ -43,7 +44,6 @@ function breakline (sourceCode, options) {
   }
 
   let oldASI = 0
-  let preToken
   const ast = acorn.parse(sourceCode, Object.assign(options, {
     onInsertedSemicolon: (a, b) => {
       oldASI++
