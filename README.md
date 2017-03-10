@@ -22,8 +22,7 @@ a
 
 It uses [acorn](https://github.com/ternjs/acorn) to parse code. You can pass `acorn`'s `options` object as the second argument of `breakline`, like `breakline(sourceCode, {ecmaVersion: 5})`.  
 
-The default `options` of `breakline` is {ecmaVersion: 6, allowHashBang: true}.
-
+The default `options` of `breakline` is {ecmaVersion: 6, allowHashBang: true}....
 ## How
 This tool does nothing except inserts line feeds `\n` in appropriate positions, which would not trigger [**Automatic Semicolon Insertion**](http://www.ecma-international.org/ecma-262/6.0/#sec-automatic-semicolon-insertion). It won't delete anything or modify the AST(**A**bstrac **S**yntax **T**ree) of your code. It just inserts `\n`.
 
