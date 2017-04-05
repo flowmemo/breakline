@@ -34,7 +34,7 @@
     "eslint": "^3.16.1",
     "eslint-config-standard": "^7.0.0",
     "eslint-plugin-promise": "^3.5.0",
-    "eslint-plugin-standard": "^2.1.0",
+    "eslint-plugin-standard": "^2.2.0",
     "nyc": "^10.1.2"
   },
   "dependencies": {
